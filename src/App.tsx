@@ -11,6 +11,9 @@ import './css/Footer.css';
 import './css/Calendar.css';
 import './css/Navigator.css';
 import './css/Scroll.css';
+import './css/Account.css';
+import './css/Modal.css';
+import './css/SurveryModal.css';
 
 
 import Invitation from './pages/Invitation';

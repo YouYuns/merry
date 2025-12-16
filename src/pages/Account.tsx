@@ -43,15 +43,14 @@ interface Contact {
 
 const Account: React.FC = () => {
   const groom_contact: Contact[] = [
-    { person: "신랑 김신랑", account: "우리은행 1002-123-456789", kakaopay: "" },
-    { person: "아버지 김아빠", account: "우리은행 0123456789", kakaopay: "" },
-    { person: "어머니 박엄마", account: "농협은행 0123456789", kakaopay: "" },
+    { person: "신랑 윤성호", account: "농협은행 040-12-262997", kakaopay: "" },
+    { person: "아버지 윤원근", account: "농협은행 040-12-262997", kakaopay: "" },
+    { person: "어머니 김경하", account: "농협은행 040-12-262997", kakaopay: "" },
   ];
 
   const bride_contact: Contact[] = [
-    { person: "신부 이신부", account: "토스뱅크 1000-0123-4567", kakaopay: "" },
-    { person: "아버지 이아빠", account: "기업은행 0123456789", kakaopay: "" },
-    { person: "어머니 우엄마", account: "국민은행 0123456789", kakaopay: "" },
+    { person: "신부 최소리", account: "농협은행 040-12-262997", kakaopay: "" },
+    { person: "어머니 김남선", account: "농협은행 040-12-262997", kakaopay: "" },
   ];
 
   return (

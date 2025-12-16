@@ -69,3 +69,7 @@
   object-fit: cover; /* ⭐ 중요 */
   border-radius: 16px;
 }
+.disable-swipe .image-gallery-slide,
+.disable-swipe .image-gallery-thumbnails-wrapper {
+  touch-action: pan-y !important;
+}
