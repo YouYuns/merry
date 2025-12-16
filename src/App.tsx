@@ -9,6 +9,7 @@ import './css/Location.css';
 import './css/Modal.css';
 import './css/Footer.css';
 import './css/Calendar.css';
+import './css/Contact.css';
 import './css/Navigator.css';
 import './css/Scroll.css';
 import './css/Account.css';

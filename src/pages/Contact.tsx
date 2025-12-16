@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../css/Modal.css';
+import ContactModal from '../components/ContactModal';
 import sDad from '../images/1.jpg';
 import sMom from '../images/1.jpg';
 import sMain from '../images/1.jpg';
@@ -7,60 +8,59 @@ import eMain from '../images/1.jpg';
 import eMom from '../images/1.jpg';
 
 const Account: React.FC = () => {
-const groom = {
-  main: { name: "신랑 이성욱", src: sMain },
-  family: [
-    { name: "아버지 이경식", src: sDad },
-    { name: "어머니 최경숙", src: sMom },
-  ],
-};
+  const [modalInfo, setModalInfo] = useState<{ name: string; phone: string } | null>(null);
 
-const bride = {
-  main: { name: "신부 임은진", src: eMain },
-  family: [
-    { name: "어머니 김정숙", src: eMom },
-  ],
-};
-const renderPerson = (person: { name: string; src: string }) => (
-  <div className="css-z9wtaq">
-    <img
-      src={person.src}
-      alt={person.name}
-      style={{
-        width: '80px',
-        height: '80px',
-        borderRadius: '50%',
-        objectFit: 'cover',
-        display: 'block',
-        margin: '0 auto 5px auto'
-      }}
-    />
-    <p className="css-11lk4wt">{person.name}</p>
-  </div>
-);
+  const groom = {
+    main: { name: "신랑 이성욱", src: sMain, phone: "010-1111-1111" },
+    family: [
+      { name: "아버지 이경식", src: sDad, phone: "010-2222-2222" },
+      { name: "어머니 최경숙", src: sMom, phone: "010-3333-3333" },
+    ],
+  };
 
+  const bride = {
+    main: { name: "신부 임은진", src: eMain, phone: "010-4444-4444" },
+    family: [
+      { name: "어머니 김정숙", src: eMom, phone: "010-5555-5555" },
+    ],
+  };
+
+  const renderPerson = (person: { name: string; src: string; phone: string }) => (
+    <div className="person" 
+         onClick={() => setModalInfo({ name: person.name, phone: person.phone })} 
+         style={{ cursor: 'pointer' }}>
+      <img src={person.src} alt={person.name} className="person-img" />
+      <p className="person-name">{person.name}</p>
+    </div>
+  );
 
   return (
-    <div className="css-1wk23ob">
-      {/* 신랑 측 */}
-      <div className="css-1ar4t03">
-        <div className="css-wbwlph">
-          {renderPerson(groom.main)}
-        </div>
-        <div className="css-1sxnyrq">
-          {groom.family.map((person) => renderPerson(person))}
+    <div className='container'>
+      <div className='contact__sub_title'>Contact Information</div>
+      <div className='contact__title'>연락처 확인하기</div>
+
+      <div className="account-container">
+        <div className="profiles">
+          <div className="profile-group">
+            <div className="main-person">{renderPerson(groom.main)}</div>
+            <div className="family-persons">{groom.family.map(renderPerson)}</div>
+          </div>
+
+          <div className="profile-group">
+            <div className="main-person">{renderPerson(bride.main)}</div>
+            <div className="family-persons">{bride.family.map(renderPerson)}</div>
+          </div>
         </div>
       </div>
 
-      {/* 신부 측 */}
-      <div className="css-1ar4t03">
-        <div className="css-wbwlph">
-          {renderPerson(bride.main)}
-        </div>
-        <div className="css-1sxnyrq">
-          {bride.family.map((person) => renderPerson(person))}
-        </div>
-      </div>
+      {/* 모달 */}
+      {modalInfo && (
+        <ContactModal
+          name={modalInfo.name}
+          phone={modalInfo.phone}
+          closeModal={() => setModalInfo(null)}
+        />
+      )}
     </div>
   );
 };

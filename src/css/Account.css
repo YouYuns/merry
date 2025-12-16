@@ -20,6 +20,14 @@
 
 .contact__title {
   font-size: xx-large;
+  color: rgb(119, 163, 108);
+  margin-bottom: 3vh;
+  font: inherit;
+  font-weight: bold;
+   font-family: 'Cafe24Oneprettynight', sans-serif;
+}
+.contact__sub_title{
+    color: rgb(119, 163, 108);
 }
   
   .contact__btn {
@@ -83,7 +91,7 @@
   font-family: 'Cafe24Oneprettynight', sans-serif;
   text-align: center;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 4vh;
 }
 
 .contact-button:hover {
