@@ -27,9 +27,11 @@ const Location: React.FC = () => {
   const lng = 127.038394194396;
 
   useEffect(() => {
+    console.log('1111')
     if (!mapRef.current || !window.kakao?.maps) return;
 
     window.kakao.maps.load(() => {
+      console.log('지도로드');
       const center = new window.kakao!.maps.LatLng(lat, lng);
 
       const map = new window.kakao!.maps.Map(mapRef.current!, {
@@ -59,7 +61,6 @@ const Location: React.FC = () => {
         <div>디노체컨벤션</div>
         <div>서울 성동구 왕십리광장로 17 6~7층</div>
       </div>
-
       {/* 🗺 카카오 지도 */}
       <div ref={mapRef} className="location__map" />
 
