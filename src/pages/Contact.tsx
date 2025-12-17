@@ -3,8 +3,8 @@ import '../css/Modal.css';
 import ContactModal from '../components/ContactModal';
 import sDad from '../images/1.jpg';
 import sMom from '../images/1.jpg';
-import sMain from '../images/1.jpg';
-import eMain from '../images/1.jpg';
+import sMain from '../images/Contact-2.jpg';
+import eMain from '../images/Contact-1.jpg';
 import eMom from '../images/1.jpg';
 
 const Contact: React.FC = () => {
