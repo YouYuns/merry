@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import p1 from '../images/1.jpg';
 import p2 from '../images/2.jpg';
 import p3 from '../images/3.jpg';
-import ho from '../images/Scroll-baby-ho.jpg';
-import ri from '../images/Scroll-baby-ri.jpg';
+import p4 from '../images/4.jpg';
 import p5 from '../images/5.jpg';
 import p6 from '../images/6.jpg';
 import p7 from '../images/7.jpg';
 import p8 from '../images/8.jpg';
 
-const images = [p1, p2, p3, ho, ri, p5, p6, p7, p8];
+const images = [p1, p2, p3, p4, p5, p6, p7, p8];
 
 const IMAGE_UNIT_FIRST = 200;
 const IMAGE_UNIT_OTHERS = 1150;

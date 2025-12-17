@@ -24,6 +24,7 @@ import ImgGallery from './pages/ImgGallery';
 import Scroll from './pages/Scroll';
 import Footer from './components/Footer';
 import Navigator from './components/Navigator';
+import Snowfall from 'react-snowfall';
 
 function App() {
 
@@ -52,6 +53,17 @@ function App() {
 
   return (
     <div className="App">
+       <Snowfall
+        color="pink"       // 벚꽃 색상
+        snowflakeCount={20} // 개수
+        style={{
+          position: 'fixed',
+          width: '100vw',
+          height: '100vh',
+          zIndex: 9999,
+          pointerEvents: 'none',
+        }}
+      />
       <Navigator
         scrollToGalleryTop={() => scrollTo(galleryTopRef)}
         scrollToLocation={() => scrollTo(locationRef)}
