@@ -73,3 +73,16 @@
 .disable-swipe .image-gallery-thumbnails-wrapper {
   touch-action: pan-y !important;
 }
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: white !important; /* 화살표 색상 */
+}
+
+/* 화살표 위치 조정 (썸네일 기준) */
+.swiper-button-next {
+  z-index: 9999 !important;
+}
+
+.swiper-button-prev {
+}

@@ -1,17 +1,21 @@
 import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Thumbs } from "swiper/modules";  // ⬅ 여기가 중요
+import { Thumbs, Navigation } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 
+import "swiper/css/navigation";
 import "swiper/css";
 import "swiper/css/thumbs";
 
 import p1 from "../images/1.jpg";
 import p2 from "../images/2.jpg";
 import p3 from "../images/3.jpg";
+import p4 from "../images/4.jpg";
+import p5 from "../images/5.jpg";
+import p6 from "../images/6.jpg";
 
 const ImgGallery: React.FC = () => {
-  const images = [p1, p2, p3];
+  const images = [p1, p2, p3, p4, p5, p6];
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 
   return (
@@ -20,7 +24,7 @@ const ImgGallery: React.FC = () => {
       <Swiper
         spaceBetween={10}
         thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
-        modules={[Thumbs]}      
+        modules={[Thumbs]} 
       >
         {images.map((img, idx) => (
           <SwiperSlide key={idx}>
@@ -37,10 +41,11 @@ const ImgGallery: React.FC = () => {
       <Swiper
         onSwiper={setThumbsSwiper}
         spaceBetween={10}
-        slidesPerView={3}
+        slidesPerView={5}
         freeMode
         watchSlidesProgress
-        modules={[Thumbs]}         
+        modules={[Thumbs, Navigation]}      
+        navigation
         style={{ marginTop: "10px" }}
       >
         {images.map((img, idx) => (

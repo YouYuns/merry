@@ -14,6 +14,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ name, phone, closeModal }) 
         <h3>{name}</h3>
         <p>{phone}</p>
         <a href={`tel:${phone}`} className="call-button">전화걸기</a>
+        <a href={`sms:${phone}`} className="sms-button">문자보내기</a>
         <button className="close-button" onClick={closeModal}>닫기</button>
       </div>
     </div>

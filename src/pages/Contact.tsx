@@ -11,17 +11,17 @@ const Contact: React.FC = () => {
   const [modalInfo, setModalInfo] = useState<{ name: string; phone: string } | null>(null);
 
   const groom = {
-    main: { name: "신랑 이성욱", src: sMain, phone: "010-1111-1111" },
+    main: { name: "신랑 윤성호", src: sMain, phone: "010-4479-6511" },
     family: [
-      { name: "아버지 이경식", src: sDad, phone: "010-2222-2222" },
-      { name: "어머니 최경숙", src: sMom, phone: "010-3333-3333" },
+      { name: "아버지 윤원근", src: sDad, phone: "010-6335-6511" },
+      { name: "어머니 김경하", src: sMom, phone: "010-7120-6511" },
     ],
   };
 
   const bride = {
-    main: { name: "신부 임은진", src: eMain, phone: "010-4444-4444" },
+    main: { name: "신부 최소리", src: eMain, phone: "010-7120-6511" },
     family: [
-      { name: "어머니 김정숙", src: eMom, phone: "010-5555-5555" },
+      { name: "어머니 김남선", src: eMom, phone: "010-9197-8428" },
     ],
   };
 
