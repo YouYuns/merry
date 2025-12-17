@@ -28,22 +28,24 @@ const Account: React.FC = () => {
   };
 
   // isOpen 상태가 바뀌면 maxHeight를 계산
- useEffect(() => {
-  if (dropdownRef.current) {
-    // 다음 렌더 사이클에 상태 업데이트
-    const scrollHeight = dropdownRef.current.scrollHeight;
-    const timer = setTimeout(() => {
-      setMaxHeight(isOpen ? `${scrollHeight}px` : '0px');
-    }, 0);
+useEffect(() => {
+  if (!dropdownRef.current) return;
 
-    // 드롭다운 열릴 때 스크롤 이동
-    if (isOpen) {
-      const topPos = dropdownRef.current.offsetTop - 50;
-      window.scrollTo({ top: topPos, behavior: 'smooth' });
-    }
+  const scrollHeight = dropdownRef.current.scrollHeight;
 
-    return () => clearTimeout(timer);
+  // 다음 렌더 사이클에서 maxHeight 업데이트
+  const timer = requestAnimationFrame(() => {
+    setMaxHeight(isOpen ? `${scrollHeight}px` : '0px');
+  });
+
+  // 드롭다운 열리면 스크롤 이동
+  if (isOpen) {
+    setTimeout(() => {
+      dropdownRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 500); // transition 시간과 맞춤
   }
+
+  return () => cancelAnimationFrame(timer);
 }, [isOpen]);
 
   const copyToClipboard = (text: string) => {
