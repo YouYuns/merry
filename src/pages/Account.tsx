@@ -52,14 +52,14 @@ const Account: React.FC = () => {
       .catch(() => alert('클립보드 복사가 실패했습니다.'));
   };
 
-  const renderContact = (contact: Contact) => (
-    <div key={contact.person} className="contact__item">
-      <span>{contact.person}: {contact.account}</span>
-      <button className="copy-button" onClick={() => copyToClipboard(contact.account)}>
-        복사하기
-      </button>
-    </div>
-  );
+const renderContact = (contact: Contact, index: number, type: string) => (
+  <div key={`${type}-${index}`} className="contact__item">
+    <span>{contact.person}: {contact.account}</span>
+    <button className="copy-button" onClick={() => copyToClipboard(contact.account)}>
+      복사하기
+    </button>
+  </div>
+);
 
   return (
     <div className="container">
@@ -86,11 +86,11 @@ const Account: React.FC = () => {
       >
         <div className="contact__section">
           <h4>신랑 측</h4>
-          {groom_contact.map(renderContact)}
+          {groom_contact.map((c, i) => renderContact(c, i, 'groom'))}
         </div>
         <div className="contact__section">
           <h4>신부 측</h4>
-          {bride_contact.map(renderContact)}
+          {bride_contact.map((c, i) => renderContact(c, i, 'bride'))}
         </div>
       </div>
     </div>

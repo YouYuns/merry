@@ -7,7 +7,7 @@ import sMain from '../images/1.jpg';
 import eMain from '../images/1.jpg';
 import eMom from '../images/1.jpg';
 
-const Account: React.FC = () => {
+const Contact: React.FC = () => {
   const [modalInfo, setModalInfo] = useState<{ name: string; phone: string } | null>(null);
 
   const groom = {
@@ -25,30 +25,40 @@ const Account: React.FC = () => {
     ],
   };
 
-  const renderPerson = (person: { name: string; src: string; phone: string }) => (
-    <div className="person" 
-         onClick={() => setModalInfo({ name: person.name, phone: person.phone })} 
-         style={{ cursor: 'pointer' }}>
-      <img src={person.src} alt={person.name} className="person-img" />
-      <p className="person-name">{person.name}</p>
-    </div>
-  );
+  const renderPerson = (
+      person: { name: string; src: string; phone: string },
+      key: string
+    ) => (
+      <div
+        key={key} // 여기서 key 지정
+        className="person"
+        onClick={() => setModalInfo({ name: person.name, phone: person.phone })}
+        style={{ cursor: 'pointer' }}
+      >
+        <img src={person.src} alt={person.name} className="person-img" />
+        <p className="person-name">{person.name}</p>
+      </div>
+    );
 
   return (
     <div className='container'>
       <div className='contact__sub_title'>Contact Information</div>
       <div className='contact__title'>연락처 확인하기</div>
 
-      <div className="account-container">
+      <div className=" account-container">
         <div className="profiles">
           <div className="profile-group">
-            <div className="main-person">{renderPerson(groom.main)}</div>
-            <div className="family-persons">{groom.family.map(renderPerson)}</div>
+            <div className="main-person">{renderPerson(groom.main, 'groom-main')}</div>
+            <div className="family-persons">
+              {groom.family.map((person, i) => renderPerson(person, `groom-${i}`))}
+            </div>
           </div>
 
           <div className="profile-group">
-            <div className="main-person">{renderPerson(bride.main)}</div>
-            <div className="family-persons">{bride.family.map(renderPerson)}</div>
+            <div className="main-person">{renderPerson(bride.main, 'bride-main')}</div>
+            <div className="family-persons">
+              {bride.family.map((person, i) => renderPerson(person, `bride-${i}`))}
+            </div>
           </div>
         </div>
       </div>
@@ -65,4 +75,4 @@ const Account: React.FC = () => {
   );
 };
 
-export default Account;
+export default Contact;

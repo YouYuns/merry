@@ -16,7 +16,6 @@
 .main_container{
   position: relative;
   height: 10000px;
-  
 }
 html, body {
   overflow-y: auto;
