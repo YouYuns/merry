@@ -280,3 +280,8 @@
   transform: translateY(0);
   opacity: 1;
 }
+
+.input-content {
+  font-family: KimNamyun, sans-serif;
+  font-size: 46px; /* 글자 크기 */
+}

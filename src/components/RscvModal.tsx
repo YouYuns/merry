@@ -4,6 +4,8 @@ import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import checkedIcon from "../images/check-box.png";
 import emptyIcon from "../images/empty-check-box.png";
 import "../css/RscvModal.css";
+import groomIcon from "../images/groom-icon.png";
+import brideIcon from "../images/bride-icon.png";
 
 type Side = "groom" | "bride";
 type Attendance = "yes" | "no";
@@ -113,10 +115,7 @@ const RscvModal: React.FC<RscvModalProps> = ({ closeModal }) => {
                     setStep(2);
                   }}
                 >
-                  <img
-                    src="https://mcard.cryucard.com/image/icon/husbandIcon.png"
-                    alt="groom"
-                  />
+                  <img src={groomIcon} alt="groom" />
                   <span>신랑측</span>
                 </div>
 
@@ -127,10 +126,7 @@ const RscvModal: React.FC<RscvModalProps> = ({ closeModal }) => {
                     setStep(2);
                   }}
                 >
-                  <img
-                    src="https://mcard.cryucard.com/image/icon/wifeIcon.png"
-                    alt="bride"
-                  />
+                  <img src={brideIcon} alt="bride" />
                   <span>신부측</span>
                 </div>
               </div>
@@ -211,7 +207,7 @@ const RscvModal: React.FC<RscvModalProps> = ({ closeModal }) => {
                 </div>
 
                 {/* 인원 입력 */}
-                <div className="input-group">
+                <div className="input-group input-people">
                   <label className="input-title">인원</label>
                   <div
                     style={{
@@ -231,6 +227,7 @@ const RscvModal: React.FC<RscvModalProps> = ({ closeModal }) => {
                         setErrors({ ...errors, people: undefined });
                       }}
                     />
+
                     <span>명</span>
                   </div>
                   {errors.people && (
@@ -323,7 +320,14 @@ const RscvModal: React.FC<RscvModalProps> = ({ closeModal }) => {
         {/* 🔹 하단 버튼 */}
         <div className="modal-actions">
           {step === 3 && (
-            <button onClick={submitAttendance} disabled={loading}>
+            <button
+              onClick={submitAttendance}
+              disabled={loading || !agree} // agree 체크 안 되어 있으면 비활성화
+              style={{
+                backgroundColor: !agree ? "#ccc" : "#D5A891", // 회색 또는 활성색
+                cursor: !agree ? "not-allowed" : "pointer",
+              }}
+            >
               {loading ? "전송 중..." : "제출하기"}
             </button>
           )}
