@@ -15,6 +15,7 @@ import "./css/Account.css";
 import "./css/Modal.css";
 import "./css/SurveryModal.css";
 import "./css/Rscvp.css";
+import "./css/Link.css";
 
 import Invitation from "./pages/Invitation";
 import Calendar from "./pages/Calendar";
@@ -24,6 +25,7 @@ import Location from "./pages/Location";
 import ImgGallery from "./pages/ImgGallery";
 import Scroll from "./pages/Scroll";
 import Rsvp from "./pages/Rsvp";
+import Link from "./pages/Link";
 
 import Footer from "./components/Footer";
 import Navigator from "./components/Navigator";
@@ -124,6 +126,8 @@ function App() {
         <Rsvp showModal={showRsvpModal} />
       </div>
       <Account />
+
+      <Link />
       <Footer />
     </div>
   );

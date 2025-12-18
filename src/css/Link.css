@@ -1,0 +1,49 @@
+.link-share-container {
+  display: flex;
+  justify-content: center; /* 가로 중앙 */
+  align-items: center; /* 세로 중앙 */
+  padding-bottom: 40px;
+  background-color: #fdf7f7;
+  min-height: 150px; /* 필요시 footer 높이에 맞게 조정 */
+}
+
+.link-share-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* 글씨 아래 정렬 */
+  gap: 24px;
+}
+
+.share-btn-wrapper {
+  display: flex;
+  flex-direction: column; /* 아이콘 위, 글씨 아래 */
+  align-items: center;
+  gap: 6px; /* 아이콘과 글씨 사이 간격 */
+  height: 80px; /* 버튼 영역 높이 통일 */
+}
+
+.share-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px; /* 버튼 영역 너비 통일 */
+  height: 48px; /* 버튼 영역 높이 통일 */
+}
+
+.share-btn img {
+  display: block;
+  width: 36px; /* 아이콘 크기 통일 */
+  height: 36px; /* 아이콘 크기 통일 */
+}
+
+/* 아이콘 아래 글씨 */
+.share-label {
+  font-size: 14px;
+  color: #333;
+  text-align: center;
+  line-height: 1.2;
+}
