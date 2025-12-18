@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import kakaoMapIcon from '../images/kakao.png';
-
+import naverMapIcon from '../images/naver.webp';
 declare global {
   interface Window {
     kakao?: {
@@ -21,17 +21,14 @@ declare global {
 
 const Location: React.FC = () => {
   const mapRef = useRef<HTMLDivElement | null>(null);
-
   // 정확한 디노체컨벤션 좌표
   const lat = 37.5614417528647;
   const lng = 127.038394194396;
 
   useEffect(() => {
-    console.log('1111')
     if (!mapRef.current || !window.kakao?.maps) return;
 
     window.kakao.maps.load(() => {
-      console.log('지도로드');
       const center = new window.kakao!.maps.LatLng(lat, lng);
 
       const map = new window.kakao!.maps.Map(mapRef.current!, {
@@ -51,6 +48,9 @@ const Location: React.FC = () => {
     window.location.href =
       'https://map.kakao.com/link/search/왕십리%20디노체%20컨벤션';
   };
+  const gotoNavermap = () => {
+  window.location.href = 'https://map.naver.com/v5/search/왕십리%20디노체%20컨벤션';
+};
 
   return (
     <div className="container between_space">
@@ -73,6 +73,10 @@ const Location: React.FC = () => {
             alt="kakaoMap"
           />
           <span>카카오지도 열기</span>
+        </div>
+         <div className="location__map-item" onClick={gotoNavermap}>
+          <img src={naverMapIcon} className="location__map-icon" alt="naverMap"/>
+          <span>네이버지도 열기</span>
         </div>
       </div>
 
