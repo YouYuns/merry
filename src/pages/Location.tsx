@@ -1,6 +1,9 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState  } from 'react';
 import kakaoMapIcon from '../images/kakao.png';
 import naverMapIcon from '../images/naver.webp';
+import upArrow from '../images/up-arrow-button.png';
+import downArrow from '../images/down-arrow-button.png';
+
 declare global {
   interface Window {
     kakao?: {
@@ -21,6 +24,8 @@ declare global {
 
 const Location: React.FC = () => {
   const mapRef = useRef<HTMLDivElement | null>(null);
+  const [openTransport, setOpenTransport] = useState(false);
+  const [openCar, setOpenCar] = useState(false);
   // 정확한 디노체컨벤션 좌표
   const lat = 37.5614417528647;
   const lng = 127.038394194396;
@@ -81,13 +86,74 @@ const Location: React.FC = () => {
       </div>
 
      <div className="location__info">
-      <div>지하철 왕십리역 도보 1~2분 거리</div>
+      
+      {/* 🚍 대중교통 안내 */}
+      <div className="location__dropdown">
+           <div
+          className="location__dropdown-header"
+          onClick={() => setOpenTransport(!openTransport)}
+        >
+          <div>
+          <span className="icon">🚌</span>
+          <span className="location_title">대중교통 안내</span>
+          </div>
+          <img
+            src={openTransport ? upArrow : downArrow}
+            alt="arrow"
+            className="dropdown-arrow"
+          />
+        </div>
+        <div
+          className={`location__dropdown-content ${
+            openTransport ? 'open' : ''
+          }`}
+        >
+          <div>• 지하철</div>
+          <div> 2호선, 5호선 왕십리역 6-1번 출구 맞은편 롯데리아 옆 EV</div>
+          <div>분당선, 중앙선 왕십리역 12번 출구 좌측 안쪽 EV</div>
+          <div> &nbsp;</div>
+          <div>• 버스</div>
+          <div>성동구청, 성동경찰서 하차</div>
+          <div>110A, 141, 145, 148, 421, 2015, 2222</div>
+        </div>
+    </div>
+
+
+    {/* 🚗 자차 안내 */}
+   <div className="location__dropdown">
+      <div
+        className="location__dropdown-header"
+        onClick={() => setOpenCar(!openCar)}
+      >
+        <div>
+        <span className="icon">🚗</span>
+        <span className="location_title">자차 안내</span>
+        </div>
+        <img
+          src={openCar ? upArrow : downArrow}
+          alt="arrow"
+          className="dropdown-arrow"
+        />
+      </div>
+
+     <div
+        className={`location__dropdown-content ${
+          openCar ? 'open' : ''
+        }`}
+      >
+          <div>• 주차</div>
+          <div>왕십리 민자역사 비트플렉스 5F</div>
+          <div>1,200대 주차 가능 / 2시간 무료</div>
+        </div>
+    </div>
+
+
       <div style={{ marginTop: '8px' }}>
         <a 
           href="https://troubled-muskmelon-9ba.notion.site/ATM-29a0a969db72801aa689e6492a374a28" 
           target="_blank" 
           rel="noopener noreferrer"
-          style={{ color: 'rgba(187, 79, 97, 1)', textDecoration: 'underline' }}
+          style={{ color: 'rgba(187, 79, 97, 1)', textDecoration: 'underline' , fontSize: '16px'}}
         >
          웨딩홀 위치 & ATM 위치 자세히 보기
         </a>

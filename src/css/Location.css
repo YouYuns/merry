@@ -49,15 +49,77 @@
   }
 
   .location__info {
+    max-width: 370px;
     width: 100%;
     text-align: center;
     font-size: 20px;
   }
 
   .location__info div {
-    margin-bottom: 7px;
+    margin-bottom: 5px;
   }
 
   .bold {
     font-weight: bold;
   }
+
+
+  /* 자차 & 대중교통 버튼 css */
+  .location__dropdown {
+  padding: 12px 0;
+  width: 100%;
+}
+
+.location__dropdown-header {
+  max-width: 135px; 
+  display: flex;
+  align-items: center;
+   justify-content: space-between;
+  cursor: pointer;
+}
+
+.location__dropdown-header .icon {
+  font-size: 18px;
+}
+
+
+.location_title{
+  flex: 1;
+  font-weight: 600;
+  font-size: 16px;
+  margin-left: 0;
+}
+.dropdown-arrow {
+  width: 18px;
+  height: 18px;
+  transition: opacity 0.2s ease;
+}
+
+.location__dropdown-content {
+  text-align: left;
+  width: 100%;
+  font-size: 16px;
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 0;
+  opacity: 0;
+  transition: 
+    max-height 0.5s ease,
+    padding 0.4s ease,
+    opacity 0.3s ease;
+}
+
+.location__dropdown-content.open {
+ max-height: 500px; /* 충분히 크게 */
+  padding: 10px 0 0;
+  opacity: 1;
+}
+
+.location__dropdown-content div {
+  transform: translateY(-4px);
+  transition: transform 0.3s ease;
+}
+
+.location__dropdown-content.open div {
+  transform: translateY(0);
+}

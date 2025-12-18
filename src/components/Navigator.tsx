@@ -9,7 +9,7 @@ interface NavigatorProps {
 
 const Navigator: React.FC<NavigatorProps> = ({ scrollToGalleryTop, scrollToContact, scrollToGallery,  scrollToLocation }) => {
   return (
-    <div className='container'>
+    <div className='container-nav'>
       <nav className="top-nav">
           <div onClick={scrollToGalleryTop}>성호♥소리</div>
           <div onClick={scrollToLocation}>오시는길</div>
