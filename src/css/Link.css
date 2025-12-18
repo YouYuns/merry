@@ -1,46 +1,46 @@
 .link-share-container {
   display: flex;
-  justify-content: center; /* 가로 중앙 */
-  align-items: center; /* 세로 중앙 */
+  justify-content: center;
+  align-items: center;
   padding-bottom: 40px;
   background-color: #fdf7f7;
-  min-height: 150px; /* 필요시 footer 높이에 맞게 조정 */
+  min-height: 150px;
 }
 
 .link-share-buttons {
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* 글씨 아래 정렬 */
-  gap: 24px;
+  align-items: flex-start;
+  gap: 24px; /* 버튼 간격 */
 }
 
 .share-btn-wrapper {
   display: flex;
-  flex-direction: column; /* 아이콘 위, 글씨 아래 */
+  flex-direction: column;
   align-items: center;
-  gap: 6px; /* 아이콘과 글씨 사이 간격 */
-  height: 80px; /* 버튼 영역 높이 통일 */
+  gap: 6px; /* 아이콘과 글씨 사이 */
 }
 
-.share-btn {
-  border: none;
-  background: none;
+.share-btn,
+#kakaotalk-sharing-btn {
+  width: 36px; /* 링크 아이콘 기준 */
+  height: 36px; /* 링크 아이콘 기준 */
   cursor: pointer;
-  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 48px; /* 버튼 영역 너비 통일 */
-  height: 48px; /* 버튼 영역 높이 통일 */
+  padding: 0;
+  border: none;
+  background: none;
 }
 
-.share-btn img {
-  display: block;
-  width: 36px; /* 아이콘 크기 통일 */
-  height: 36px; /* 아이콘 크기 통일 */
+.share-btn img,
+#kakaotalk-sharing-btn img {
+  width: 36px; /* 링크 아이콘 크기와 동일 */
+  height: 36px;
+  object-fit: contain;
 }
 
-/* 아이콘 아래 글씨 */
 .share-label {
   font-size: 14px;
   color: #333;
