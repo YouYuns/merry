@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 
 import "./App.css";
 import "./css/Cover.css";
@@ -43,11 +43,12 @@ function App() {
 
     return () => window.removeEventListener("resize", setVh);
   }, []);
-
+  const [showRsvpModal, setShowRsvpModal] = useState(false);
   const galleryTopRef = useRef<HTMLDivElement>(null);
   const locationRef = useRef<HTMLDivElement>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
+  const rsvpRef = useRef<HTMLDivElement>(null);
 
   const scrollTo = (ref: React.RefObject<HTMLDivElement | null>) => {
     if (!ref.current) return;
@@ -61,6 +62,25 @@ function App() {
       behavior: "smooth", // 부드럽게 스크롤
     });
   };
+
+  useEffect(() => {
+    if (!rsvpRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setShowRsvpModal(true); // 상태만 변경
+          }
+        });
+      },
+      { threshold: 1 }
+    );
+
+    observer.observe(rsvpRef.current);
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="App">
@@ -100,7 +120,9 @@ function App() {
         <Contact />
       </div>
 
-      <Rsvp />
+      <div ref={rsvpRef}>
+        <Rsvp showModal={showRsvpModal} />
+      </div>
       <Account />
       <Footer />
     </div>
