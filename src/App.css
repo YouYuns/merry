@@ -13,12 +13,13 @@
   justify-content: center;
   align-items: center;
 }
-.main_container{
+.main_container {
   position: relative;
   max-width: 480px;
   height: 8700px;
 }
-html, body {
+html,
+body {
   overflow-y: auto;
   touch-action: pan-y;
   -webkit-overflow-scrolling: touch;
@@ -37,11 +38,11 @@ button {
 
 .bc-pink {
   max-width: 480px;
-  background-color: #fdf7f7;;
+  background-color: #fdf7f7;
 }
 
-.between_space{
-  margin-top:  120px !important;
+.between_space {
+  margin-top: 120px !important;
 }
 
 #scroll-container {
@@ -49,14 +50,10 @@ button {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
-* {
-  -webkit-tap-highlight-color: transparent;
-}
-img {
-  -webkit-user-drag: none;
-  user-select: none;
-}
 
-* {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+button,
+.person,
+a {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent; /* 모바일 클릭 시 파란 하이라이트 제거 */
 }

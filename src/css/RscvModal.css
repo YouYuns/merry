@@ -1,5 +1,5 @@
 /* ===== Overlay ===== */
-.modal-overlay {
+.rscv-modal-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.6);
@@ -10,7 +10,7 @@
 }
 
 /* ===== Modal Box ===== */
-.modal-content {
+.rscv-modal-content {
   background: #fff;
   width: 90%;
   max-width: 360px;
@@ -57,7 +57,7 @@
 }
 
 /* ===== Modal Body (STEP3 포함) ===== */
-.modal-body {
+.rscv-modal-body {
   max-height: 60vh;
   overflow-y: auto;
   display: flex;
@@ -137,8 +137,8 @@
   margin: 0;
 }
 
-.modal-content input,
-.modal-content textarea {
+.rscv-modal-content input,
+.rscv-modal-content textarea {
   width: 100%;
   padding: 12px;
   border-radius: 12px;
@@ -147,7 +147,7 @@
   font-size: 11px;
 }
 
-.modal-content textarea {
+.rscv-modal-content textarea {
   resize: none;
   min-height: 100px;
 }
@@ -195,14 +195,14 @@
 }
 
 /* ===== 하단 버튼 ===== */
-.modal-actions {
+.rscv-modal-actions {
   display: flex;
   width: 100%;
   margin-top: 12px;
   flex-shrink: 0;
 }
 
-.modal-actions button {
+.rscv-modal-actions button {
   width: 100%;
   padding: 14px 0;
   border-radius: 14px;
@@ -213,12 +213,12 @@
   cursor: pointer;
 }
 
-.modal-actions button:disabled {
+.rscv-modal-actions button:disabled {
   background: #ccc;
   cursor: not-allowed;
 }
 /* 효과 */
-.modal-overlay {
+.rscv-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -235,12 +235,12 @@
   transition: opacity 0.3s ease;
 }
 
-.modal-overlay.show {
+.rscv-modal-overlay.show {
   opacity: 1;
   pointer-events: auto;
 }
 
-.modal-content {
+.rscv-modal-content {
   background: white;
   padding: 20px;
   border-radius: 8px;
@@ -254,7 +254,7 @@
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.modal-overlay.show .modal-content {
+.rscv-modal-overlay.show .rscv-modal-content {
   transform: translateY(0);
   opacity: 1;
 }
@@ -270,18 +270,18 @@
 }
 
 /* modal-content 이미 위 -> 아래 적용되어 있음 */
-.modal-content {
+.rscv-modal-content {
   transform: translateY(-20px); /* -20px로 위에서 아래로 */
   opacity: 0;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.modal-overlay.show .modal-content {
+.rscv-modal-overlay.show .modal-content {
   transform: translateY(0);
   opacity: 1;
 }
 
-.input-content {
+.rscv-input-content {
   font-family: KimNamyun, sans-serif;
   font-size: 46px; /* 글자 크기 */
 }

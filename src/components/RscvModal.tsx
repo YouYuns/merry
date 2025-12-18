@@ -90,8 +90,11 @@ const RscvModal: React.FC<RscvModalProps> = ({ closeModal }) => {
     setPhone(input);
   };
   return (
-    <div className={`modal-overlay ${show ? "show" : ""}`} onClick={closeModal}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+    <div
+      className={`rscv-modal-overlay ${show ? "show" : ""}`}
+      onClick={closeModal}
+    >
+      <div className="rscv-modal-content" onClick={(e) => e.stopPropagation()}>
         {/* 🔹 진행 바 */}
         <div className="step-bar">
           <div className={`step ${step >= 1 ? "active" : ""}`} />
@@ -99,7 +102,7 @@ const RscvModal: React.FC<RscvModalProps> = ({ closeModal }) => {
           <div className={`step ${step >= 3 ? "active" : ""}`} />
         </div>
 
-        <div className="modal-body">
+        <div className="rscv-modal-body">
           {/* STEP 1 */}
           {step === 1 && (
             <>
@@ -177,7 +180,7 @@ const RscvModal: React.FC<RscvModalProps> = ({ closeModal }) => {
                   </label>
                   <input
                     placeholder="대표자 한 분의 성함을 입력해주세요"
-                    className="input-content"
+                    className="rscv-input-content"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
@@ -195,7 +198,7 @@ const RscvModal: React.FC<RscvModalProps> = ({ closeModal }) => {
                   </label>
                   <input
                     placeholder="연락 가능한 번호를 입력해주세요"
-                    className="input-content"
+                    className="rscv-input-content"
                     value={phone}
                     onChange={handlePhoneChange}
                   />
@@ -219,7 +222,7 @@ const RscvModal: React.FC<RscvModalProps> = ({ closeModal }) => {
                     <input
                       type="number"
                       min={0}
-                      className="input-content"
+                      className="rscv-input-content"
                       style={{ width: "80px" }}
                       value={people}
                       onChange={(e) => {
@@ -266,7 +269,7 @@ const RscvModal: React.FC<RscvModalProps> = ({ closeModal }) => {
                 <p className="input-title">전달 사항 (선택)</p>
                 <textarea
                   placeholder="신랑신부에게 전하고 싶은 메시지를 입력해주세요"
-                  className="input-content"
+                  className="rscv-input-content"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                 />
@@ -318,7 +321,7 @@ const RscvModal: React.FC<RscvModalProps> = ({ closeModal }) => {
         </div>
 
         {/* 🔹 하단 버튼 */}
-        <div className="modal-actions">
+        <div className="rscv-modal-actions">
           {step === 3 && (
             <button
               onClick={submitAttendance}

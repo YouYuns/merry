@@ -10,7 +10,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  padding-top: 45%;   /* 🔥 비율용 */
+  padding-top: 45%; /* 🔥 비율용 */
   margin: 0;
   left: 0;
   top: 0;
@@ -19,7 +19,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
 }
 
 /* 이미지 */
