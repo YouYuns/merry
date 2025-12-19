@@ -48,7 +48,7 @@ const LinkShare: React.FC = () => {
     // Kakao SDK 로드
     const script = document.createElement("script");
 
-    script.src = "https://t1.kakaocdn.net/kakao_js_sdk/2.7.9/kakao.min.js";
+    script.src = "https://developers.kakao.com/sdk/js/kakao.js";
     script.async = true;
     document.body.appendChild(script);
 
@@ -62,28 +62,22 @@ const LinkShare: React.FC = () => {
     };
   }, []);
 
-  // 카카오톡 공유
   const shareKakao = () => {
     const kakao = window.Kakao;
     if (!kakao.isInitialized()) kakao.init(JS_KEY);
-    kakao.Share.sendDefault?.({
+
+    kakao.Share.sendDefault({
       objectType: "feed",
       content: {
         title: "청첩장 링크입니다!",
         description: "청첩장을 확인해보세요.",
         imageUrl: "https://youyuns.github.io/merry/1.jpg",
-        link: {
-          webUrl: urlToShare,
-          mobileWebUrl: urlToShare,
-        },
+        link: { webUrl: urlToShare, mobileWebUrl: urlToShare },
       },
       buttons: [
         {
           title: "청첩장 확인",
-          link: {
-            webUrl: urlToShare,
-            mobileWebUrl: urlToShare,
-          },
+          link: { webUrl: urlToShare, mobileWebUrl: urlToShare },
         },
       ],
     });
