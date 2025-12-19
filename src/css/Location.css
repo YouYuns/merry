@@ -95,8 +95,8 @@
 
 .location__dropdown-content {
   text-align: left;
-  width: 100%;
-  font-size: 16px;
+  width: 120%;
+  font-size: 15px;
   max-height: 0;
   overflow: hidden;
   padding: 0 0;

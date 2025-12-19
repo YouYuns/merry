@@ -4,6 +4,7 @@ import naverMapIcon from "../images/naver.webp";
 import upArrow from "../images/up-arrow-button.png";
 import downArrow from "../images/down-arrow-button.png";
 import { useFadeUp } from "../hooks/useFadeUp";
+
 declare global {
   interface Window {
     kakao?: KakaoStatic;
@@ -23,6 +24,7 @@ interface LatLng {
   getLat(): number;
   getLng(): number;
 }
+
 interface MapOptions {
   center: LatLng;
   level: number;
@@ -30,12 +32,15 @@ interface MapOptions {
   scrollwheel?: boolean;
   disableDoubleClick?: boolean;
 }
+
 interface MapInstance {
   setCenter(center: LatLng): void;
 }
+
 interface MarkerOptions {
   position: LatLng;
 }
+
 interface MarkerInstance {
   setMap(map: MapInstance): void;
 }
@@ -48,15 +53,14 @@ const Location: React.FC = () => {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const [openTransport, setOpenTransport] = useState(false);
   const [openCar, setOpenCar] = useState(false);
-  // 정확한 디노체컨벤션 좌표
+
   const lat = 37.5614417528647;
   const lng = 127.038394194396;
-
   useEffect(() => {
     const container = mapRef.current;
-    if (!container) return; // container 없으면 종료
-    const kakao = window.kakao; // 변수에 저장
-    if (!kakao?.maps) return; // Kakao Map 로드 확인
+    if (!container) return;
+    const kakao = window.kakao;
+    if (!kakao?.maps) return;
 
     kakao.maps.load(() => {
       const center = new kakao.maps.LatLng(lat, lng);
@@ -64,17 +68,28 @@ const Location: React.FC = () => {
       const map = new kakao.maps.Map(container, {
         center,
         level: 3,
-        draggable: true,
-        scrollwheel: true,
+        draggable: false,
+        scrollwheel: false,
         disableDoubleClick: true,
       });
 
       const marker = new kakao.maps.Marker({ position: center });
       marker.setMap(map);
+
+      // 지도 위에서도 페이지 스크롤 가능하게
+      container.style.touchAction = "auto"; // touch-action override
+      container.style.pointerEvents = "auto"; // 기본 이벤트 허용
+
+      // 내부 지도 div에도 적용
+      const mapInnerDivs = container.querySelectorAll("div");
+      mapInnerDivs.forEach((div) => {
+        (div as HTMLElement).style.pointerEvents = "none"; // 지도 이벤트 무시
+        (div as HTMLElement).style.touchAction = "auto"; // 터치 이벤트 허용
+      });
     });
   }, []);
 
-  const gotoKakaoMap = (): void => {
+  const gotoKakaoMap = () => {
     window.location.href =
       "https://map.kakao.com/link/search/왕십리%20디노체%20컨벤션";
   };
@@ -89,6 +104,7 @@ const Location: React.FC = () => {
         <div className="contact__sub_title">Directions Info</div>
         <div className="contact__title">오시는 길</div>
       </div>
+
       <div
         ref={locationrRef}
         className={`fade-up ${locationShow ? "show" : ""}`}
@@ -97,22 +113,11 @@ const Location: React.FC = () => {
           <div>디노체컨벤션</div>
           <div>서울 성동구 왕십리광장로 17 6~7층</div>
         </div>
-        {/* 🗺 카카오 지도 */}
-        <div ref={mapRef} className="location__map">
-          <div className="location__map" ref={mapRef}>
-            <div
-              className="map-overlay"
-              style={{
-                position: "absolute",
-                inset: 0,
-                zIndex: 10,
-                pointerEvents: "none", // 이벤트 투과
-              }}
-            />
-          </div>
-        </div>
 
-        {/* 📍 카카오 지도 앱 / 웹 이동 */}
+        {/* 카카오 지도 */}
+        <div ref={mapRef} className="location__map" />
+
+        {/* 지도 앱 / 웹 이동 버튼 */}
         <div className="location__map-icon-box">
           <div className="location__map-item" onClick={gotoKakaoMap}>
             <img
@@ -138,7 +143,7 @@ const Location: React.FC = () => {
         className={`fade-up ${dropdownShow ? "show" : ""}`}
       >
         <div className="location__info">
-          {/* 🚍 대중교통 안내 */}
+          {/* 대중교통 안내 */}
           <div className="location__dropdown">
             <div
               className="location__dropdown-header"
@@ -160,7 +165,7 @@ const Location: React.FC = () => {
               }`}
             >
               <div>• 지하철</div>
-              <div> 2호선, 5호선 왕십리역 6-1번 출구 맞은편 롯데리아 옆 EV</div>
+              <div>2호선, 5호선 왕십리역 6-1번 출구 맞은편 롯데리아 옆 EV</div>
               <div>분당선, 중앙선 왕십리역 12번 출구 좌측 안쪽 EV</div>
               <div> &nbsp;</div>
               <div>• 버스</div>
@@ -169,7 +174,7 @@ const Location: React.FC = () => {
             </div>
           </div>
 
-          {/* 🚗 자차 안내 */}
+          {/* 자차 안내 */}
           <div className="location__dropdown">
             <div
               className="location__dropdown-header"
@@ -185,7 +190,6 @@ const Location: React.FC = () => {
                 className="dropdown-arrow"
               />
             </div>
-
             <div
               className={`location__dropdown-content ${openCar ? "open" : ""}`}
             >

@@ -69,8 +69,8 @@ const LinkShare: React.FC = () => {
     kakao.Share.sendDefault({
       objectType: "feed",
       content: {
-        title: "청첩장 링크입니다!",
-        description: "청첩장을 확인해보세요.",
+        title: "성호&소리, 결혼합니다",
+        description: "우리 결혼식에 초대합니다! 함께 축복해주세요.",
         imageUrl: "https://youyuns.github.io/merry/1.jpg",
         link: { webUrl: urlToShare, mobileWebUrl: urlToShare },
       },

@@ -15,7 +15,7 @@
   align-items: center;
   text-align: center;
   font-size: 14px;
-  background: rgba(255, 255, 255, 0.9);
+  background: #fdf7f7;
   position: fixed;
   z-index: 1000;
   left: 50%;
@@ -29,7 +29,7 @@
   padding: 6px 0;
   transition: transform 0.15s ease, color 0.15s ease;
   opacity: 0; /* 초기 투명 */
-  animation: navFadeIn 0.5s forwards;
+  animation: navFadeIn 1.5s forwards;
   animation-delay: 2s; /* 메시지 사라진 후 등장 */
   transform: scale(1);
 }
