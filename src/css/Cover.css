@@ -1,86 +1,177 @@
-.cover__main-photo {
-  width: 340px;
-  height: 340px;
-  margin-top: 15px;
-  border-radius: 10px;
-  object-fit: cover; /* 이미지가 컨테이너를 꽉 채우도록 설정 */
+/* Cover 전체 화면 덮기 */
+.cover-container {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 9999;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  animation: coverFadeOut 1s forwards;
+  animation-delay: 2.5s; /* 텍스트 애니메이션 끝난 뒤 서서히 사라짐 */
 }
-  
-  .cover__person {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: xx-large;
-    font-weight: bold;
-  }
-  
-  @keyframes heartbeat {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.3);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-  
-  .cover__icon-heart {
-    animation: heartbeat 1s infinite; 
-    margin: 0 15px;
-    color: rgb(214, 69, 69);
-  }
-  
-  .cover__date {
-    margin-top: 8px;
-    font-size: x-large;
-  }
 
-  .cover__place {
-    margin-top: 8px;
-    font-size: x-large;
-  }
-  
-  @keyframes playAnimation {
-    0% {
-      width: 0
-    }
-    100% {
-      width: 100%;
-    }
-  }
-  
-  .cover__line {
-    border-radius: 2px;
-    margin-top: 30px;
-    width: 340px;
-    height: 4px;
-    background: linear-gradient(to right, rgb(170, 138, 138), rgb(170, 138, 138)); /* 시작 색상부터 끝 색상까지의 그라데이션 설정 */
-  }
-  
-  .cover__line::after {
-    border-radius: 2px;
-    content: '';
-    display: block;
-    width: 100%;
-    height: 100%;
-    background-color: rgb(95, 25, 25);;
-    animation: playAnimation 20s infinite; /* 애니메이션 지속 시간 및 무한 반복 설정 */
-  }
-  
-  .cover__icon-box {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 300px;
-  }
+/* 배경 */
+.cover-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
 
-  .cover__music-btn:hover,
-  .cover__music-btn:focus {
-    cursor: pointer;
-    color:rgb(214, 69, 69);
+.cover-bg img {
+  width: 110%;
+  height: 100%;
+  object-fit: cover;
+  animation: bgMove 2s linear forwards; /* 텍스트와 동일 속도 */
+}
+
+.cover-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* 텍스트 */
+.cover-texts {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -15%);
+  width: 100%;
+  text-align: center;
+  color: white;
+  z-index: 10;
+}
+
+/* LOVE IS */
+.center-text {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  font-size: 6rem;
+  font-weight: bold;
+}
+
+.text-love {
+  animation: moveLeftToCenter 2s forwards;
+  opacity: 0;
+}
+
+.text-is {
+  animation: moveRightToCenter 2s forwards;
+  opacity: 0;
+}
+
+/* LIFE + 라인 */
+.text-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  font-size: 6rem;
+  font-weight: bold;
+}
+
+.text-life {
+  animation: moveRightToLeftSide 2s forwards; /* 오른쪽에서 왼쪽 */
+  opacity: 0;
+}
+
+.line {
+  width: 0;
+  height: 4px;
+  background: white;
+  display: inline-block;
+  animation: lineGrow 2s forwards; /* 길이만 늘어남 */
+}
+
+/* 배경 천천히 좌우 이동 */
+@keyframes bgMove {
+  0% {
+    transform: translateX(3%);
   }
+  100% {
+    transform: translateX(-3%); /* 텍스트 속도와 비슷하게 이동 */
+  }
+}
+
+/* LOVE IS 중앙 등장 */
+@keyframes moveLeftToCenter {
+  0% {
+    transform: translateX(-20%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes moveRightToCenter {
+  0% {
+    transform: translateX(20%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* LIFE 등장: 오른쪽에서 왼쪽 */
+@keyframes moveRightToLeftSide {
+  0% {
+    transform: translateX(20%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* 라인: 길이만 늘어남 */
+@keyframes lineGrow {
+  0% {
+    width: 0;
+    opacity: 1;
+  }
+  100% {
+    width: 80px;
+    opacity: 1;
+  }
+}
+
+/* 전체 Cover 페이드 아웃 */
+@keyframes coverFadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* 왼쪽/오른쪽 아래 텍스트 */
+.cover-footer {
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  width: 100%;
+  padding: 0 10px;
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.2rem;
+  color: white;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.footer-left,
+.footer-right {
+  opacity: 0.8;
+}

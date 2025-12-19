@@ -16,7 +16,9 @@ import "./css/Modal.css";
 import "./css/SurveryModal.css";
 import "./css/Rscvp.css";
 import "./css/Link.css";
+import "./css/Cover.css";
 
+import Cover from "./pages/Cover";
 import Invitation from "./pages/Invitation";
 import Calendar from "./pages/Calendar";
 import Account from "./pages/Account";
@@ -97,6 +99,7 @@ function App() {
           pointerEvents: "none",
         }}
       />
+      <Cover />
       <Navigator
         scrollToGalleryTop={() => scrollTo(galleryTopRef)}
         scrollToLocation={() => scrollTo(locationRef)}
