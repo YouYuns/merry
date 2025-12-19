@@ -63,9 +63,9 @@ const Location: React.FC = () => {
 
       const map = new kakao.maps.Map(container, {
         center,
-        level: 4,
-        draggable: false,
-        scrollwheel: false,
+        level: 3,
+        draggable: true,
+        scrollwheel: true,
         disableDoubleClick: true,
       });
 
