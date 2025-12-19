@@ -54,7 +54,6 @@ const LinkShare: React.FC = () => {
 
     script.onload = () => {
       const kakao = window.Kakao;
-      console.log("Kakao JS SDK version:", window.Kakao);
       if (!kakao.isInitialized()) kakao.init(JS_KEY);
     };
 
@@ -67,7 +66,6 @@ const LinkShare: React.FC = () => {
   const shareKakao = () => {
     const kakao = window.Kakao;
     if (!kakao.isInitialized()) kakao.init(JS_KEY);
-
     kakao.Share.sendDefault?.({
       objectType: "feed",
       content: {
@@ -75,16 +73,16 @@ const LinkShare: React.FC = () => {
         description: "청첩장을 확인해보세요.",
         imageUrl: "https://youyuns.github.io/merry/1.jpg",
         link: {
-          webUrl: "https://youyuns.github.io/merry/",
-          mobileWebUrl: "https://youyuns.github.io/merry/",
+          webUrl: urlToShare,
+          mobileWebUrl: urlToShare,
         },
       },
       buttons: [
         {
           title: "청첩장 확인",
           link: {
-            webUrl: "https://youyuns.github.io/merry/",
-            mobileWebUrl: "https://youyuns.github.io/merry/",
+            webUrl: urlToShare,
+            mobileWebUrl: urlToShare,
           },
         },
       ],

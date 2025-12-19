@@ -34,6 +34,9 @@ const RscvModal: React.FC<RscvModalProps> = ({ closeModal }) => {
   const [agree, setAgree] = useState(true);
 
   const [loading, setLoading] = useState(false);
+  const [vh, setVh] = useState<number | null>(null);
+
+  const modalHeight = step === 3 && vh ? `${vh * 0.9}px` : "85dvh";
 
   useEffect(() => {
     const timeout = setTimeout(() => setShow(true), 10);
@@ -49,6 +52,23 @@ const RscvModal: React.FC<RscvModalProps> = ({ closeModal }) => {
       document.documentElement.style.overflow = "auto";
     };
   }, []);
+
+  useEffect(() => {
+    if (!window.visualViewport) return;
+
+    const handleResize = () => {
+      const viewportHeight = window.visualViewport!.height;
+      setVh(viewportHeight);
+    };
+
+    window.visualViewport.addEventListener("resize", handleResize);
+    handleResize(); // 초기 1회
+
+    return () => {
+      window.visualViewport?.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const submitAttendance = async () => {
     const newErrors: { name?: string; phone?: string; people?: string } = {};
 
@@ -104,7 +124,18 @@ const RscvModal: React.FC<RscvModalProps> = ({ closeModal }) => {
       className={`rscv-modal-overlay ${show ? "show" : ""}`}
       onClick={closeModal}
     >
-      <div className="rscv-modal-content" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="rscv-modal-content"
+        style={
+          step === 3
+            ? {
+                height: modalHeight,
+                maxHeight: modalHeight,
+              }
+            : undefined
+        }
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="rscv-close-btn {">
           <img
             src={closeIcon}
@@ -120,7 +151,7 @@ const RscvModal: React.FC<RscvModalProps> = ({ closeModal }) => {
           <div className={`step ${step >= 3 ? "active" : ""}`} />
         </div>
 
-        <div className="rscv-modal-body">
+        <div className={`rscv-modal-body ${step === 3 ? "step3" : ""}`}>
           {/* STEP 1 */}
           {step === 1 && (
             <>
