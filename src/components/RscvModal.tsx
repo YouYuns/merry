@@ -36,7 +36,7 @@ const RscvModal: React.FC<RscvModalProps> = ({ closeModal }) => {
   const [loading, setLoading] = useState(false);
   const [vh, setVh] = useState<number | null>(null);
 
-  const modalHeight = step === 3 && vh ? `${vh * 0.9}px` : "85dvh";
+  const modalHeight = step === 3 && vh ? `${vh * 0.9}px` : "90dvh";
 
   useEffect(() => {
     const timeout = setTimeout(() => setShow(true), 10);

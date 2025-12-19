@@ -68,3 +68,6 @@ a {
   opacity: 1;
   transform: translateY(0);
 }
+* {
+  -webkit-tap-highlight-color: transparent;
+}

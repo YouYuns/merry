@@ -1,30 +1,121 @@
-.container-nav{
-   margin: 0;
-  padding: 35px 0;
+/* ===== 컨테이너 ===== */
+.container-nav {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
+
+/* ===== 네비게이션 ===== */
 .top-nav {
   max-width: 480px;
-  position: fixed;
   width: 100%;
-  height: 80px;
-  align-items: center;
+  height: 60px;
   display: flex;
   justify-content: space-around;
+  align-items: center;
   text-align: center;
   font-size: 14px;
   background: rgba(255, 255, 255, 0.9);
+  position: fixed;
   z-index: 1000;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 20px;
 }
 
-.top-nav div {
+/* ===== 네비 글자 ===== */
+.nav-item {
   cursor: pointer;
   padding: 6px 0;
+  transition: transform 0.15s ease, color 0.15s ease;
+  opacity: 0; /* 초기 투명 */
+  animation: navFadeIn 0.5s forwards;
+  animation-delay: 2s; /* 메시지 사라진 후 등장 */
+  transform: scale(1);
 }
 
-.top-nav div:active {
-  opacity: 0.6;
+@keyframes navFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== 음악 버튼 ===== */
+.music-control {
+  position: absolute;
+  right: 40px;
+  cursor: pointer;
+}
+
+.music-btn {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.1s;
+  -webkit-tap-highlight-color: transparent; /* 모바일 터치 하이라이트 제거 */
+  outline: none;
+  border: none;
+}
+
+/* 클릭 시 확대 효과 제거 (모바일에서 커지는 문제 해결) */
+.music-btn:active,
+.music-btn.clicked {
+  transform: scale(1);
+}
+
+/* ===== 메시지 ===== */
+.music-message {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 480px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  color: #5f1919;
+  font-size: 14px;
+  font-weight: normal;
+  text-align: center;
+  opacity: 0;
+  z-index: 1001;
+  pointer-events: none; /* 기본 클릭 방지 */
+}
+
+.fade-in-out {
+  animation: fadeInOut 2s forwards;
+}
+
+/* 메시지가 나타날 때 클릭 가능하도록 */
+.fade-in-out.show {
+  pointer-events: auto;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.nav-item:active {
+  transform: scale(1.2);
+  color: gray;
+}
+.nav-item.clicked {
+  transform: scale(1.2);
+  color: gray;
 }
