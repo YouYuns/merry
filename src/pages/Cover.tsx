@@ -1,4 +1,3 @@
-import mainPhoto from "../images/1.jpg";
 import "../css/Cover.css";
 
 function Cover() {
@@ -6,7 +5,6 @@ function Cover() {
     <div className="cover-container">
       {/* 배경 이미지 + 어둠 레이어 */}
       <div className="cover-bg">
-        <img src={mainPhoto} alt="wedding couple" />
         <div className="cover-overlay" />
       </div>
 

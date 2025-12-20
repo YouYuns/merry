@@ -1,4 +1,6 @@
-/* Cover 전체 화면 덮기 */
+/* =========================
+   Cover 전체
+========================= */
 .cover-container {
   position: fixed;
   inset: 0;
@@ -10,22 +12,24 @@
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  animation: coverFadeOut 1s forwards;
-  animation-delay: 2.5s; /* 텍스트 애니메이션 끝난 뒤 서서히 사라짐 */
+
+  animation: coverFadeOut 1.8s ease-out forwards;
+  animation-delay: 3.5s;
 }
 
-/* 배경 */
+/* =========================
+   배경
+========================= */
 .cover-bg {
   position: absolute;
   inset: 0;
-  overflow: hidden;
-}
+  background-image: url("https://youyuns.github.io/1.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
-.cover-bg img {
-  width: 110%;
-  height: 100%;
-  object-fit: cover;
-  animation: bgMove 2s linear forwards; /* 텍스트와 동일 속도 */
+  animation: bgMove 3s ease-out forwards;
+  will-change: transform;
 }
 
 .cover-overlay {
@@ -34,7 +38,9 @@
   background: rgba(0, 0, 0, 0.4);
 }
 
-/* 텍스트 */
+/* =========================
+   텍스트 영역
+========================= */
 .cover-texts {
   position: absolute;
   top: 60%;
@@ -56,13 +62,15 @@
   font-weight: bold;
 }
 
+/* LOVE */
 .text-love {
-  animation: moveLeftToCenter 2s forwards;
+  animation: loveFromLeft 2.5s ease-out forwards;
   opacity: 0;
 }
 
+/* IS */
 .text-is {
-  animation: moveRightToCenter 2s forwards;
+  animation: isFromRight 2.5s ease-out forwards;
   opacity: 0;
 }
 
@@ -77,7 +85,7 @@
 }
 
 .text-life {
-  animation: moveRightToLeftSide 2s forwards; /* 오른쪽에서 왼쪽 */
+  animation: lifeFromRight 2.5s ease-out forwards;
   opacity: 0;
 }
 
@@ -86,77 +94,12 @@
   height: 4px;
   background: white;
   display: inline-block;
-  animation: lineGrow 2s forwards; /* 길이만 늘어남 */
+  animation: lineGrow 2.5s ease-out forwards;
 }
 
-/* 배경 천천히 좌우 이동 */
-@keyframes bgMove {
-  0% {
-    transform: translateX(3%);
-  }
-  100% {
-    transform: translateX(-3%); /* 텍스트 속도와 비슷하게 이동 */
-  }
-}
-
-/* LOVE IS 중앙 등장 */
-@keyframes moveLeftToCenter {
-  0% {
-    transform: translateX(-20%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes moveRightToCenter {
-  0% {
-    transform: translateX(20%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-/* LIFE 등장: 오른쪽에서 왼쪽 */
-@keyframes moveRightToLeftSide {
-  0% {
-    transform: translateX(20%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-/* 라인: 길이만 늘어남 */
-@keyframes lineGrow {
-  0% {
-    width: 0;
-    opacity: 1;
-  }
-  100% {
-    width: 80px;
-    opacity: 1;
-  }
-}
-
-/* 전체 Cover 페이드 아웃 */
-@keyframes coverFadeOut {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-/* 왼쪽/오른쪽 아래 텍스트 */
+/* =========================
+   하단 텍스트
+========================= */
 .cover-footer {
   position: absolute;
   bottom: 30px;
@@ -174,4 +117,74 @@
 .footer-left,
 .footer-right {
   opacity: 0.8;
+}
+
+/* =========================
+   Animations
+========================= */
+
+/* 배경 좌우 이동 */
+@keyframes bgMove {
+  from {
+    transform: translateX(3%);
+  }
+  to {
+    transform: translateX(-3%);
+  }
+}
+
+/* LOVE: 왼쪽 → 중앙 */
+@keyframes loveFromLeft {
+  from {
+    transform: translateX(-40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* IS: 오른쪽 → 중앙 */
+@keyframes isFromRight {
+  from {
+    transform: translateX(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* LIFE: 오른쪽 → 중앙 */
+@keyframes lifeFromRight {
+  from {
+    transform: translateX(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* 라인 */
+@keyframes lineGrow {
+  from {
+    width: 0;
+  }
+  to {
+    width: 80px;
+  }
+}
+
+/* Cover 페이드아웃 */
+@keyframes coverFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
