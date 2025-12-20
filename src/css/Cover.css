@@ -8,30 +8,37 @@
   height: 100vh;
   z-index: 9999;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   pointer-events: none;
+
+  background: black; /* 이미지 로딩 전 가림 */
 
   animation: coverFadeOut 1.8s ease-out forwards;
   animation-delay: 3.5s;
 }
 
 /* =========================
-   배경
+   배경 이미지
 ========================= */
-.cover-bg {
+.cover-bg-img {
   position: absolute;
-  inset: 0;
-  background-image: url("https://youyuns.github.io/1.webp");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  inset: -5%;
+  width: 110%;
+  height: 110%;
+  object-fit: cover;
 
+  transform: translateX(6%);
   animation: bgMove 3s ease-out forwards;
   will-change: transform;
+
+  filter: blur(20px);
+  transition: filter 0.6s ease-out;
 }
 
+.cover-container.loaded .cover-bg-img {
+  filter: blur(0);
+}
+
+/* 어두운 오버레이 */
 .cover-overlay {
   position: absolute;
   inset: 0;
@@ -62,16 +69,14 @@
   font-weight: bold;
 }
 
-/* LOVE */
 .text-love {
-  animation: loveFromLeft 2.5s ease-out forwards;
   opacity: 0;
+  animation: loveFromLeft 2.5s ease-out forwards;
 }
 
-/* IS */
 .text-is {
-  animation: isFromRight 2.5s ease-out forwards;
   opacity: 0;
+  animation: isFromRight 2.5s ease-out forwards;
 }
 
 /* LIFE + 라인 */
@@ -85,15 +90,14 @@
 }
 
 .text-life {
-  animation: lifeFromRight 2.5s ease-out forwards;
   opacity: 0;
+  animation: lifeFromRight 2.5s ease-out forwards;
 }
 
 .line {
   width: 0;
   height: 4px;
   background: white;
-  display: inline-block;
   animation: lineGrow 2.5s ease-out forwards;
 }
 
@@ -111,7 +115,6 @@
   font-size: 1.2rem;
   color: white;
   z-index: 10;
-  pointer-events: none;
 }
 
 .footer-left,
@@ -120,20 +123,55 @@
 }
 
 /* =========================
-   Animations
+   애니메이션 제어
 ========================= */
 
-/* 배경 좌우 이동 */
+/* 기본: 정지 */
+.cover-container * {
+  animation-play-state: paused;
+}
+
+/* 이미지 로드 후 실행 */
+.cover-container.loaded * {
+  animation-play-state: running;
+}
+
+/* =========================
+   로딩 바
+========================= */
+.cover-loader {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  width: 120px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(-50%);
+  overflow: hidden;
+}
+
+.cover-loader::after {
+  content: "";
+  position: absolute;
+  left: -40%;
+  width: 40%;
+  height: 100%;
+  background: white;
+  animation: loadingBar 1.2s infinite ease-in-out;
+}
+
+/* =========================
+   Keyframes
+========================= */
 @keyframes bgMove {
   from {
-    transform: translateX(3%);
+    transform: translateX(6%);
   }
   to {
-    transform: translateX(-3%);
+    transform: translateX(-6%);
   }
 }
 
-/* LOVE: 왼쪽 → 중앙 */
 @keyframes loveFromLeft {
   from {
     transform: translateX(-40px);
@@ -145,7 +183,6 @@
   }
 }
 
-/* IS: 오른쪽 → 중앙 */
 @keyframes isFromRight {
   from {
     transform: translateX(40px);
@@ -157,7 +194,6 @@
   }
 }
 
-/* LIFE: 오른쪽 → 중앙 */
 @keyframes lifeFromRight {
   from {
     transform: translateX(40px);
@@ -169,7 +205,6 @@
   }
 }
 
-/* 라인 */
 @keyframes lineGrow {
   from {
     width: 0;
@@ -179,7 +214,15 @@
   }
 }
 
-/* Cover 페이드아웃 */
+@keyframes loadingBar {
+  from {
+    left: -40%;
+  }
+  to {
+    left: 100%;
+  }
+}
+
 @keyframes coverFadeOut {
   from {
     opacity: 1;

@@ -1,28 +1,39 @@
+import { useState } from "react";
 import "../css/Cover.css";
 
 function Cover() {
-  return (
-    <div className="cover-container">
-      {/* 배경 이미지 + 어둠 레이어 */}
-      <div className="cover-bg">
-        <div className="cover-overlay" />
-      </div>
+  const [loaded, setLoaded] = useState(false);
 
-      {/* 중앙 LOVE IS */}
+  return (
+    <div className={`cover-container ${loaded ? "loaded" : ""}`}>
+      {/* 배경 이미지 */}
+      <img
+        className="cover-bg-img"
+        src="https://youyuns.github.io/1.webp"
+        alt=""
+        loading="eager"
+        decoding="async"
+        fetchPriority="high"
+        onLoad={() => setLoaded(true)}
+      />
+
+      <div className="cover-overlay" />
+
+      {/* 🔄 로딩 인디케이터 */}
+      {!loaded && <div className="cover-loader" />}
+
       <div className="cover-texts">
         <div className="center-text">
           <span className="text-love">LOVE</span>
           <span className="text-is">IS</span>
         </div>
 
-        {/* 아래 LIFE + 라인 */}
         <div className="text-bottom">
           <span className="text-life">LIFE</span>
           <span className="line"></span>
         </div>
       </div>
 
-      {/* 왼쪽/오른쪽 아래 작은 텍스트 */}
       <div className="cover-footer">
         <span className="footer-left">wedding</span>
         <span className="footer-right">invitation</span>
