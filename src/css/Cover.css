@@ -9,7 +9,7 @@
   object-fit: cover;
 
   transform: translateX(0%);
-  animation: bgMove 3s ease-out forwards;
+  animation: bgMove 2s ease-out forwards;
   will-change: transform;
 
   filter: blur(20px);

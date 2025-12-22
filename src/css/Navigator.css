@@ -46,8 +46,9 @@
 /* ===== 도움말 ===== */
 .nav-help {
   font-size: 14px;
-  color: #5f1919;
+  color: #fdf7f7;
   pointer-events: none;
+  background-color: #5f1919;
 }
 
 /* ===== 네비 아이템 ===== */
