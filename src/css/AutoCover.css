@@ -35,27 +35,27 @@
 
 .autocover-item img {
   width: 100%;
-  max-width: 320px;
-  height: 400px;
+  max-width: 280px;
+  height: 350px;
   object-fit: cover;
   border-radius: 16px;
 }
 
 .autocover-item .caption {
-  margin-top: 15px;
+  margin-bottom: 15px;
   font-family: KimNamyun, sans-serif;
-  font-size: 1.8rem;
-  line-height: 40px;
+  font-size: 1.6rem;
+  line-height: 35px;
   text-align: center;
-  color: #333;
+  color: rgb(95, 25, 25);
 }
 
 /* ===== 화면 중앙 하단 고정 스크롤 화살표 ===== */
 .scroll-guide {
   position: fixed;
-  bottom: 30px; /* 화면 하단 30px 위 */
+  top: auto;
+  bottom: 15% !important;
   left: 50%; /* 가로 중앙 */
-  top: 85%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;

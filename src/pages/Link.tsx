@@ -41,13 +41,14 @@ declare global {
 }
 
 const LinkShare: React.FC = () => {
-  const urlToShare = "https://youyuns.github.io/";
   const JS_KEY = "6bbdbe14cfee86bf2c09a3d16aa9bc79"; // 본인 JS 키
+
+  // 🔹 현재 URL + 쿼리 포함 공유 링크
+  const shareUrl = `${window.location.origin}${window.location.pathname}${window.location.search}`;
 
   useEffect(() => {
     // Kakao SDK 로드
     const script = document.createElement("script");
-
     script.src = "https://developers.kakao.com/sdk/js/kakao.js";
     script.async = true;
     document.body.appendChild(script);
@@ -72,21 +73,20 @@ const LinkShare: React.FC = () => {
         title: "성호&소리, 결혼합니다",
         description: "우리 결혼식에 초대합니다! 함께 축복해주세요.",
         imageUrl: "https://youyuns.github.io/1.jpg",
-        link: { webUrl: urlToShare, mobileWebUrl: urlToShare },
+        link: { webUrl: shareUrl, mobileWebUrl: shareUrl }, // 파라미터 포함 URL
       },
       buttons: [
         {
           title: "청첩장 확인",
-          link: { webUrl: urlToShare, mobileWebUrl: urlToShare },
+          link: { webUrl: shareUrl, mobileWebUrl: shareUrl },
         },
       ],
     });
   };
 
-  // 링크 복사
   const copyToClipboard = () => {
     navigator.clipboard
-      .writeText(urlToShare)
+      .writeText(shareUrl) // 파라미터 포함 URL 복사
       .then(() => alert("청첩장 링크가 복사되었습니다!"))
       .catch(() => alert("복사에 실패했습니다."));
   };
@@ -94,7 +94,6 @@ const LinkShare: React.FC = () => {
   return (
     <div className="link-share-container">
       <div className="link-share-buttons">
-        {/* 카카오톡 공유 버튼 */}
         <div className="share-btn-wrapper">
           <button className="share-btn" onClick={shareKakao}>
             <img
@@ -105,7 +104,6 @@ const LinkShare: React.FC = () => {
           <span className="share-label">카카오톡 공유하기</span>
         </div>
 
-        {/* 링크 복사 버튼 */}
         <div className="share-btn-wrapper">
           <button className="share-btn" onClick={copyToClipboard}>
             <img src={linkIcon} alt="링크 복사" />
