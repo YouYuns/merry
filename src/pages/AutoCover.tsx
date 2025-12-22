@@ -57,7 +57,7 @@ const AutoCover: React.FC = () => {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [start, setStart] = useState(false);
 
-  const intervalRef = useRef<NodeJS.Timer | null>(null);
+  const intervalRef = useRef<number | null>(null);
   const touchStartX = useRef<number | null>(null);
   const touchDeltaX = useRef(0);
 
