@@ -1,91 +1,111 @@
-import React, { useState, useRef, useEffect } from "react";
-import playIcon from "../images/play-icon.png"; // 음소거 상태 아이콘
-import stopIcon from "../images/play-stop-icon.png"; // 음소거 해제 아이콘
-import myMusic from "../media/JOY_Je-Taime.mp3";
+import React, { useEffect, useState } from "react";
+import playIcon from "../images/play-icon.png";
+import stopIcon from "../images/play-stop-icon.png";
 
 interface NavigatorProps {
+  audioRef: React.RefObject<HTMLAudioElement | null>;
+  isMuted: boolean;
+  setIsMuted: React.Dispatch<React.SetStateAction<boolean>>;
+
   scrollToGalleryTop: () => void;
   scrollToContact: () => void;
   scrollToLocation: () => void;
   scrollToGallery: () => void;
 }
 
+type NavMode = "hidden" | "help" | "nav";
+
 const Navigator: React.FC<NavigatorProps> = ({
+  audioRef,
+  isMuted,
+  setIsMuted,
   scrollToGalleryTop,
   scrollToContact,
   scrollToGallery,
   scrollToLocation,
 }) => {
-  const [isMuted, setIsMuted] = useState(true); // 처음 음소거 상태
-  const [navTexts, setNavTexts] = useState(["", "", "", ""]);
-  const [showMessage, setShowMessage] = useState(true);
   const [clicked, setClicked] = useState(false);
-  const audioRef = useRef(new Audio(myMusic));
+  const [navMode, setNavMode] = useState<NavMode>("hidden");
+  const [navTexts, setNavTexts] = useState(["", "", "", ""]);
 
-  // 음소거 토글
+  /* =========================
+     Cover 종료 후 타이밍
+  ========================= */
+  useEffect(() => {
+    const helpTimer = setTimeout(() => {
+      setNavMode("help");
+    }, 4000);
+
+    const navTimer = setTimeout(() => {
+      setNavTexts(["성호♥소리", "오시는길", "사진첩", "연락처"]);
+      setNavMode("nav");
+    }, 7800);
+
+    return () => {
+      clearTimeout(helpTimer);
+      clearTimeout(navTimer);
+    };
+  }, []);
+
+  /* =========================
+     음소거 토글
+  ========================= */
   const toggleMute = () => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    // 첫 클릭 시 음악 시작
-    if (audio.paused) {
-      audio.loop = true;
-      audio.play().catch((err) => console.log("자동재생 실패:", err));
+    const nextMuted = !isMuted;
+    audio.muted = nextMuted;
+
+    if (!nextMuted && audio.paused) {
+      audio.play().catch(() => {});
     }
 
-    audio.muted = !audio.muted;
-    setIsMuted(audio.muted);
+    setIsMuted(nextMuted);
   };
-
-  // 처음 메시지 애니메이션 + 네비게이션 글자 표시
-  useEffect(() => {
-    const timer1 = setTimeout(() => setShowMessage(false), 2000);
-    const timer2 = setTimeout(
-      () => setNavTexts(["성호♥소리", "오시는길", "사진첩", "연락처"]),
-      2200
-    );
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-    };
-  }, []);
 
   return (
     <div className="container-nav">
-      {/* 처음 메시지 */}
-      {showMessage && (
-        <div className="music-message fade-in-out">
-          음소거 해제 시 배경음악이 재생됩니다.
-        </div>
-      )}
-
       <nav className="top-nav">
-        <div style={{ display: "flex", gap: "20px" }}>
-          <div className="nav-item" onClick={scrollToGalleryTop}>
-            {navTexts[0]}
+        {/* ===== 도움말 ===== */}
+        {navMode === "help" && (
+          <div className="nav-help fade-in-out-long">
+            화면을 터치하면 배경음악이 재생됩니다.
           </div>
-          <div className="nav-item" onClick={scrollToLocation}>
-            {navTexts[1]}
-          </div>
-          <div className="nav-item" onClick={scrollToGallery}>
-            {navTexts[2]}
-          </div>
-          <div className="nav-item" onClick={scrollToContact}>
-            {navTexts[3]}
-          </div>
-        </div>
+        )}
 
-        {/* 음소거 토글 버튼 */}
+        {/* ===== 네비 ===== */}
+        {navMode === "nav" && (
+          <div className="nav-items">
+            <div className="nav-item" onClick={scrollToGalleryTop}>
+              {navTexts[0]}
+            </div>
+            <div className="nav-item" onClick={scrollToLocation}>
+              {navTexts[1]}
+            </div>
+            <div className="nav-item" onClick={scrollToGallery}>
+              {navTexts[2]}
+            </div>
+            <div className="nav-item" onClick={scrollToContact}>
+              {navTexts[3]}
+            </div>
+          </div>
+        )}
+
+        {/* 🎵 음악 버튼 (항상 표시) */}
         <div
           className="music-control"
-          onClick={toggleMute}
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleMute();
+          }}
           onTouchStart={() => setClicked(true)}
           onTouchEnd={() => setClicked(false)}
         >
           <img
-            src={isMuted ? stopIcon : playIcon} // 음소거 상태에 따라 아이콘 변경
-            alt={isMuted ? "음소거 해제" : "음소거"}
+            src={isMuted ? stopIcon : playIcon}
             className={`music-btn ${clicked ? "clicked" : ""}`}
+            alt="music"
           />
         </div>
       </nav>

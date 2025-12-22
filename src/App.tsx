@@ -12,11 +12,9 @@ import "./css/Contact.css";
 import "./css/Navigator.css";
 import "./css/Scroll.css";
 import "./css/Account.css";
-import "./css/Modal.css";
 import "./css/SurveryModal.css";
 import "./css/Rscvp.css";
 import "./css/Link.css";
-import "./css/Cover.css";
 
 import Cover from "./pages/Cover";
 import Invitation from "./pages/Invitation";
@@ -33,7 +31,12 @@ import Footer from "./components/Footer";
 import Navigator from "./components/Navigator";
 import Snowfall from "react-snowfall";
 
+import myMusic from "./media/JOY_Je-Taime.mp3";
+
 function App() {
+  /* ===========================
+     vh 계산 (기존)
+  ============================ */
   useEffect(() => {
     const setVh = () => {
       document.documentElement.style.setProperty(
@@ -44,29 +47,62 @@ function App() {
 
     setVh();
     window.addEventListener("resize", setVh);
-
     return () => window.removeEventListener("resize", setVh);
   }, []);
+
+  /* ===========================
+     기존 상태
+  ============================ */
   const [showRsvpModal, setShowRsvpModal] = useState(false);
+
   const galleryTopRef = useRef<HTMLDivElement>(null);
   const locationRef = useRef<HTMLDivElement>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
   const rsvpRef = useRef<HTMLDivElement>(null);
 
+  /* ===========================
+     🔥 음악 관련 (추가)
+  ============================ */
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isMuted, setIsMuted] = useState(true);
+  const [showMusicOverlay, setShowMusicOverlay] = useState(true);
+
+  const handleFirstInteraction = () => {
+    if (!audioRef.current) {
+      const audio = new Audio(myMusic);
+      audio.loop = true;
+      audio.muted = false;
+      audio.play().catch(() => {});
+      audioRef.current = audio;
+    } else {
+      audioRef.current.muted = false;
+      audioRef.current.play().catch(() => {});
+    }
+
+    setIsMuted(false); // 🔊 아이콘 변경
+    setShowMusicOverlay(false); // 🔥 오버레이 제거
+  };
+
+  /* ===========================
+     스크롤 유틸 (기존)
+  ============================ */
   const scrollTo = (ref: React.RefObject<HTMLDivElement | null>) => {
     if (!ref.current) return;
 
-    const offset = 80; // 네비게이션 높이만큼 여유
+    const offset = 80;
     const top =
       ref.current.getBoundingClientRect().top + window.scrollY - offset;
 
     window.scrollTo({
       top,
-      behavior: "smooth", // 부드럽게 스크롤
+      behavior: "smooth",
     });
   };
 
+  /* ===========================
+     RSVP 옵저버 (기존)
+  ============================ */
   useEffect(() => {
     if (!rsvpRef.current) return;
 
@@ -74,7 +110,7 @@ function App() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setShowRsvpModal(true); // 상태만 변경
+            setShowRsvpModal(true);
           }
         });
       },
@@ -82,15 +118,24 @@ function App() {
     );
 
     observer.observe(rsvpRef.current);
-
     return () => observer.disconnect();
   }, []);
 
   return (
     <div className="App">
+      {/* 🔥 전체 화면 음악 오버레이 */}
+      {showMusicOverlay && (
+        <div
+          className="music-overlay"
+          onTouchStart={handleFirstInteraction}
+          onClick={handleFirstInteraction}
+        />
+      )}
+
+      {/* 눈 효과 */}
       <Snowfall
-        color="pink" // 벚꽃 색상
-        snowflakeCount={15} // 개수
+        color="pink"
+        snowflakeCount={15}
         style={{
           position: "fixed",
           width: "100vw",
@@ -99,24 +144,32 @@ function App() {
           pointerEvents: "none",
         }}
       />
+
       <Cover />
+
       <Navigator
+        audioRef={audioRef}
+        isMuted={isMuted}
+        setIsMuted={setIsMuted}
         scrollToGalleryTop={() => scrollTo(galleryTopRef)}
         scrollToLocation={() => scrollTo(locationRef)}
         scrollToGallery={() => scrollTo(galleryRef)}
         scrollToContact={() => scrollTo(contactRef)}
       />
+
       <div className="main_container">
         <div ref={galleryTopRef} className="section">
           <Scroll />
         </div>
       </div>
-      <Invitation />
 
+      <Invitation />
       <Calendar />
+
       <div ref={galleryRef} className="section">
         <ImgGallery />
       </div>
+
       <div ref={locationRef} className="section">
         <Location />
       </div>
@@ -128,8 +181,8 @@ function App() {
       <div ref={rsvpRef}>
         <Rsvp showModal={showRsvpModal} />
       </div>
-      <Account />
 
+      <Account />
       <Link />
       <Footer />
     </div>

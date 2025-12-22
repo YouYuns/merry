@@ -94,13 +94,6 @@
   animation: lifeFromRight 2.5s ease-out forwards;
 }
 
-.line {
-  width: 0;
-  height: 4px;
-  background: white;
-  animation: lineGrow 2.5s ease-out forwards;
-}
-
 /* =========================
    하단 텍스트
 ========================= */

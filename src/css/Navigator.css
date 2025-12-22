@@ -1,8 +1,15 @@
+/* ===== 전체 터치 오버레이 ===== */
+.music-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: transparent;
+}
+
 /* ===== 컨테이너 ===== */
 .container-nav {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
 }
 
 /* ===== 네비게이션 ===== */
@@ -10,34 +17,56 @@
   max-width: 480px;
   width: 100%;
   height: 60px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  text-align: center;
-  font-size: 14px;
-  background: #fdf7f7;
   position: fixed;
-  z-index: 1000;
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
-  padding: 0 20px;
+  background: #fdf7f7;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* ===== 네비 글자 ===== */
+/* ===== 도움말 & 네비 공통 위치 ===== */
+.nav-help,
+.nav-items {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 60px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===== 도움말 ===== */
+.nav-help {
+  font-size: 14px;
+  color: #5f1919;
+  pointer-events: none;
+}
+
+/* ===== 네비 아이템 ===== */
+.nav-items {
+  display: flex;
+  gap: 20px;
+}
+
 .nav-item {
   cursor: pointer;
-  padding: 6px 0;
-  transition: transform 0.15s ease, color 0.15s ease;
-  opacity: 0; /* 초기 투명 */
-  animation: navFadeIn 1.5s forwards;
-  animation-delay: 2s; /* 메시지 사라진 후 등장 */
-  transform: scale(1);
+  font-size: 14px;
+  opacity: 0;
+  animation: navFadeIn 1.2s forwards;
 }
 
 @keyframes navFadeIn {
   from {
     opacity: 0;
-    transform: translateY(-5px);
+    transform: translateY(-6px);
   }
   to {
     opacity: 1;
@@ -49,52 +78,20 @@
 .music-control {
   position: absolute;
   right: 40px;
-  cursor: pointer;
 }
 
 .music-btn {
   width: 12px;
   height: 12px;
-  transition: transform 0.1s;
-  -webkit-tap-highlight-color: transparent; /* 모바일 터치 하이라이트 제거 */
-  outline: none;
-  border: none;
 }
 
-/* 클릭 시 확대 효과 제거 (모바일에서 커지는 문제 해결) */
-.music-btn:active,
 .music-btn.clicked {
   transform: scale(1);
 }
 
-/* ===== 메시지 ===== */
-.music-message {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 480px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: transparent;
-  color: #5f1919;
-  font-size: 14px;
-  font-weight: normal;
-  text-align: center;
-  opacity: 0;
-  z-index: 1001;
-  pointer-events: none; /* 기본 클릭 방지 */
-}
-
+/* ===== 도움말 애니메이션 ===== */
 .fade-in-out {
-  animation: fadeInOut 2s forwards;
-}
-
-/* 메시지가 나타날 때 클릭 가능하도록 */
-.fade-in-out.show {
-  pointer-events: auto;
+  animation: fadeInOut 3s forwards;
 }
 
 @keyframes fadeInOut {
@@ -110,12 +107,4 @@
   100% {
     opacity: 0;
   }
-}
-.nav-item:active {
-  transform: scale(1.2);
-  color: gray;
-}
-.nav-item.clicked {
-  transform: scale(1.2);
-  color: gray;
 }
