@@ -34,12 +34,12 @@ const Navigator: React.FC<NavigatorProps> = ({
   useEffect(() => {
     const helpTimer = setTimeout(() => {
       setNavMode("help");
-    }, 4000);
+    }, 2000);
 
     const navTimer = setTimeout(() => {
       setNavTexts(["성호♥소리", "오시는길", "사진첩", "연락처"]);
       setNavMode("nav");
-    }, 7800);
+    }, 8000);
 
     return () => {
       clearTimeout(helpTimer);
