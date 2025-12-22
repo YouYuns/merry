@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "../css/AutoCover.css"; // CSS 파일 임포트
 import p1 from "../images/1.jpg";
 import p2 from "../images/2.jpg";
@@ -56,36 +56,86 @@ const AutoCover: React.FC = () => {
   const [index, setIndex] = useState(0);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [start, setStart] = useState(false);
+
+  const intervalRef = useRef<NodeJS.Timer | null>(null);
+  const touchStartX = useRef<number | null>(null);
+  const touchDeltaX = useRef(0);
+
+  /* =========================
+     시작 타이머
+  ========================= */
   useEffect(() => {
-    // 3초 후에 시작 (예: Cover 애니메이션 끝난 후)
-    const timer = setTimeout(() => {
-      setStart(true);
-    }, 3000); // 3000ms = 3초
+    const timer = setTimeout(() => setStart(true), 3000);
     return () => clearTimeout(timer);
   }, []);
 
+  /* =========================
+     자동 슬라이드
+  ========================= */
   useEffect(() => {
-    if (!start) return; // start가 false면 타이머 실행 안함
-    const interval = setInterval(() => {
+    if (!start) return;
+
+    intervalRef.current = setInterval(() => {
       setIndex((prev) => (prev + 1) % images.length);
     }, 3800);
-    return () => clearInterval(interval);
+
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
   }, [start]);
 
-  // 스크롤 감지
+  /* =========================
+     스크롤 감지
+  ========================= */
   useEffect(() => {
     const onScroll = () => {
-      if (!hasScrolled && window.scrollY > 5) {
-        setHasScrolled(true);
-      }
+      if (!hasScrolled && window.scrollY > 5) setHasScrolled(true);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, [hasScrolled]);
 
+  /* =========================
+     터치 슬라이드
+  ========================= */
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (intervalRef.current) clearInterval(intervalRef.current); // 터치 시작 시 자동 슬라이드 멈춤
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (touchStartX.current !== null) {
+      touchDeltaX.current = e.touches[0].clientX - touchStartX.current;
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (touchDeltaX.current > 50) {
+      // 오른쪽으로 스와이프 -> 이전 이미지
+      setIndex((prev) => (prev - 1 + images.length) % images.length);
+    } else if (touchDeltaX.current < -50) {
+      // 왼쪽으로 스와이프 -> 다음 이미지
+      setIndex((prev) => (prev + 1) % images.length);
+    }
+
+    // 터치 상태 초기화
+    touchStartX.current = null;
+    touchDeltaX.current = 0;
+
+    // 자동 슬라이드 다시 시작
+    intervalRef.current = setInterval(() => {
+      setIndex((prev) => (prev + 1) % images.length);
+    }, 3800);
+  };
+
   return (
     <>
-      <div className="autocover-container">
+      <div
+        className="autocover-container"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
         {images.map((img, i) => (
           <div
             key={i}
