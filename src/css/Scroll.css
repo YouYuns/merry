@@ -38,3 +38,60 @@
   line-height: 25px;
   color: #333;
 }
+/* 🔽 스크롤 유도용 main */
+.scroll-guide {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 8888;
+}
+
+/* 화살표 위치: 중앙 하단 */
+.scroll-guide .arrow_div {
+  position: absolute;
+  left: 50%;
+  bottom: 80px;
+  transform: translateX(-50%);
+  height: 22px;
+}
+
+/* 화살표 */
+.scroll-guide .arrow {
+  position: absolute;
+  opacity: 1;
+}
+
+.scroll-guide .arrow img {
+  width: 22px;
+  display: block;
+}
+
+/* 애니메이션 */
+.scroll-guide .arrow:first-child {
+  animation: motion 2s ease-out 0s infinite;
+}
+
+.scroll-guide .arrow:last-child {
+  animation: motion 2s ease-out 1s infinite;
+  opacity: 0;
+}
+
+@keyframes motion {
+  25% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+.scroll-guide .arrow img {
+  width: 22px;
+  display: block;
+  filter: brightness(0); /* 🔥 완전 검정 */
+  opacity: 0.8;
+}

@@ -10,12 +10,13 @@ import p8 from "../images/8.jpg";
 
 const images = [p1, p2, p3, p4, p5, p6, p7, p8];
 
-const IMAGE_UNIT_FIRST = 200;
+const IMAGE_UNIT_FIRST = 200; // ✅ Cover 영역
 const IMAGE_UNIT_OTHERS = 1150;
+
 const START_Z = -2000;
 const END_Z = 0;
 const START_Z_FIRST = -500;
-const START_Z_OTHERS = START_Z;
+
 const imageTexts = [
   <>
     2026년 11월 14일
@@ -58,7 +59,7 @@ const imageTexts = [
   </>,
 ];
 
-const easeInOut = (t: number) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t); // easing 함수
+const easeInOut = (t: number) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t);
 
 const Scroll: React.FC = () => {
   const [zs, setZs] = useState<number[]>(
@@ -68,12 +69,17 @@ const Scroll: React.FC = () => {
     images.map((_, i) => (i === 0 ? 1 : 0))
   );
 
+  const [hasScrolled, setHasScrolled] = useState(false);
   useEffect(() => {
     const onScroll = () => {
       const scrollY = window.scrollY;
+
+      if (!hasScrolled && scrollY > 5) {
+        setHasScrolled(true);
+      }
+
       const newZs: number[] = [];
       const newOpacities: number[] = [];
-
       let accumulatedScroll = 0;
 
       images.forEach((_, index) => {
@@ -81,7 +87,7 @@ const Scroll: React.FC = () => {
         const start = accumulatedScroll;
         const end = start + unit;
 
-        const baseZ = index === 0 ? START_Z_FIRST : START_Z_OTHERS;
+        const baseZ = index === 0 ? START_Z_FIRST : START_Z;
         let z = baseZ;
         let opacity = 0;
 
@@ -100,15 +106,13 @@ const Scroll: React.FC = () => {
         }
 
         const progress = Math.min(Math.max((scrollY - start) / unit, 0), 1);
-        const easedProgress = easeInOut(progress); // 모든 이미지에 easing 적용
-        z = baseZ + easedProgress * (END_Z - baseZ);
+        const eased = easeInOut(progress);
 
-        // opacity 계산
+        z = baseZ + eased * (END_Z - baseZ);
         opacity = progress > 0.85 ? 1 - (progress - 0.85) / 0.15 : 1;
 
         newZs.push(z);
         newOpacities.push(opacity);
-
         accumulatedScroll += unit;
       });
 
@@ -122,50 +126,67 @@ const Scroll: React.FC = () => {
   }, []);
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        pointerEvents: "none",
-        perspective: "1200px",
-      }}
-    >
-      {images.map((img, index) => (
-        <div
-          key={index}
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: `translate3d(-50%, -50%, ${zs[index]}px)`,
-            opacity: opacities[index],
-            maxWidth: "480px",
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
+    <>
+      {/* 🔽 스크롤 유도 (Cover 이후에만) */}
+      {!hasScrolled && (
+        <div className="scroll-guide">
+          <div className="arrow_div">
+            <div className="arrow">
+              <img src="https://i.ibb.co/BTbSmBS/1.png" alt="scroll" />
+            </div>
+            <div className="arrow">
+              <img src="https://i.ibb.co/BTbSmBS/1.png" alt="scroll" />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 🔽 3D 이미지 스크롤 */}
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          pointerEvents: "none",
+          perspective: "1200px",
+        }}
+      >
+        {images.map((img, index) => (
           <div
+            key={index}
             style={{
-              fontFamily: "KimNamyun, sans-serif",
-              fontSize: "1.8rem",
-              lineHeight: "40px",
-              textAlign: "center",
-              marginBottom: "10px",
-              opacity: 1,
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: `translate3d(-50%, -50%, ${zs[index]}px)`,
+              opacity: opacities[index],
+              maxWidth: "480px",
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
             }}
           >
-            {imageTexts[index]}
+            <div
+              style={{
+                fontFamily: "KimNamyun, sans-serif",
+                fontSize: "1.8rem",
+                lineHeight: "40px",
+                textAlign: "center",
+                marginBottom: "10px",
+              }}
+            >
+              {imageTexts[index]}
+            </div>
+
+            <img
+              src={img}
+              alt={`gallery-${index}`}
+              style={{ width: "100%", borderRadius: "16px" }}
+            />
           </div>
-          <img
-            src={img}
-            alt={`gallery-${index}`}
-            style={{ width: "100%", borderRadius: "16px" }}
-          />
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </>
   );
 };
 
