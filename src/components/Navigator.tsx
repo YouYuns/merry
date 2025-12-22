@@ -39,7 +39,7 @@ const Navigator: React.FC<NavigatorProps> = ({
     const navTimer = setTimeout(() => {
       setNavTexts(["성호♥소리", "오시는길", "사진첩", "연락처"]);
       setNavMode("nav");
-    }, 8000);
+    }, 9000);
 
     return () => {
       clearTimeout(helpTimer);
