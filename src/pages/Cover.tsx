@@ -25,7 +25,7 @@ function Cover() {
       <div className="cover-texts">
         <div className="center-text">
           <span className="text-love">LOVE</span>
-          <span className="text-is">IS</span>
+          <span className="text-is">OF</span>
         </div>
 
         <div className="text-bottom">

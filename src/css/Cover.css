@@ -70,14 +70,16 @@
 }
 
 .text-love {
-  font-family: Cafe24Danjunghae, sans-serif;
+  font-family: BookkMyungjo, sans-serif;
   opacity: 0;
+  font-size: 70px;
   animation: loveFromLeft 2.5s ease-out forwards;
 }
 
 .text-is {
-  font-family: Cafe24Danjunghae, sans-serif;
+  font-family: BookkMyungjo, sans-serif;
   opacity: 0;
+  font-size: 70px;
   animation: isFromRight 2.5s ease-out forwards;
 }
 
@@ -92,7 +94,8 @@
 }
 
 .text-life {
-  font-family: Cafe24Danjunghae, sans-serif;
+  font-family: BookkMyungjo, sans-serif;
+  font-size: 70px;
   opacity: 0;
   animation: lifeFromRight 2.5s ease-out forwards;
 }
@@ -161,10 +164,10 @@
 ========================= */
 @keyframes bgMove {
   from {
-    transform: translateX(6%);
+    transform: translateX(7%);
   }
   to {
-    transform: translateX(-6%);
+    transform: translateX(-5%);
   }
 }
 
@@ -185,7 +188,7 @@
     opacity: 0;
   }
   to {
-    transform: translateX(0);
+    transform: translateX(-10px);
     opacity: 1;
   }
 }
@@ -196,7 +199,7 @@
     opacity: 0;
   }
   to {
-    transform: translateX(0);
+    transform: translateX(-75px);
     opacity: 1;
   }
 }

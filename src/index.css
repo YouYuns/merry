@@ -52,3 +52,9 @@ code {
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: "Cafe24Oneprettynight";
+  src: url("fonts/BookkMyungjo.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
