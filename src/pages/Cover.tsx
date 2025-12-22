@@ -4,6 +4,11 @@ import "../css/Cover.css";
 function Cover() {
   const [loaded, setLoaded] = useState(false);
 
+  const handleImageLoad = () => {
+    // 이미지 로딩 완료 후 1초 딜레이 후 loaded 상태 변경
+    setTimeout(() => setLoaded(true), 1000);
+  };
+
   return (
     <div className={`cover-container ${loaded ? "loaded" : ""}`}>
       {/* 배경 이미지 */}
@@ -14,7 +19,7 @@ function Cover() {
         loading="eager"
         decoding="async"
         fetchPriority="high"
-        onLoad={() => setLoaded(true)}
+        onLoad={handleImageLoad}
       />
 
       <div className="cover-overlay" />
