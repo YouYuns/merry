@@ -37,7 +37,7 @@ const Navigator: React.FC<NavigatorProps> = ({
     }, 2000);
 
     const navTimer = setTimeout(() => {
-      setNavTexts(["성호♥소리", "오시는길", "사진첩", "연락처"]);
+      setNavTexts(["성호♥소리", "사진첩", "오시는길", "연락처"]);
       setNavMode("nav");
     }, 9000);
 
@@ -110,10 +110,10 @@ const Navigator: React.FC<NavigatorProps> = ({
             <div className="nav-item" onClick={scrollToGalleryTop}>
               {navTexts[0]}
             </div>
-            <div className="nav-item" onClick={scrollToLocation}>
+            <div className="nav-item" onClick={scrollToGallery}>
               {navTexts[1]}
             </div>
-            <div className="nav-item" onClick={scrollToGallery}>
+            <div className="nav-item" onClick={scrollToLocation}>
               {navTexts[2]}
             </div>
             <div className="nav-item" onClick={scrollToContact}>
