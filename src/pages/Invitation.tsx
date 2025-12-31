@@ -37,7 +37,7 @@ const Invitation: React.FC = () => {
   const { ref: titleRef, show: titleShow } = useFadeUp();
 
   return (
-    <div className=" container">
+    <div className=" container invitation_container">
       <div ref={titleRef} className={`fade-up ${titleShow ? "show" : ""}`}>
         <div className="contact__sub_title">Invite</div>
         <div className="contact__title">초대합니다</div>
